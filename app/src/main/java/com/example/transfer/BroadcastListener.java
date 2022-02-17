@@ -3,6 +3,7 @@ package com.example.transfer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.NetworkInfo;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -44,7 +45,11 @@ public class BroadcastListener extends BroadcastReceiver {
 
             // Connection state changed! We should probably do something about
             // that.
-
+            if(manager==null)
+                return;
+            NetworkInfo networkInfo=(NetworkInfo) intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
+            if(networkInfo.isConnected())
+                activity.setText("Connected");
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
             
 
